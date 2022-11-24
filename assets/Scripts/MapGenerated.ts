@@ -14,6 +14,9 @@ export class MapGenerated extends Component {
     @property({ type: Prefab })
     blocks: Prefab[] = [];
 
+    @property({ type: Prefab })
+    decors: Prefab[] = [];
+
     @property({ type: Node })
     tileMap: Node = null;
 
@@ -83,6 +86,7 @@ export class MapGenerated extends Component {
             for (let j = 0; j < this.mapSize; j++) {
 
                 let block;
+                let decor: Node;
                 switch (this.levelMap[i][j]) {
                     case BlockType.START_BLOCK:
                         block = instantiate(this.blocks[0]);
@@ -93,9 +97,16 @@ export class MapGenerated extends Component {
                         block.parent = this.tileMap;
                         break;
                     case BlockType.HIGH_BLOCK:
-                        const randomIndex = Math.floor(Math.random() * 3);
-                        block = instantiate(this.blocks[randomIndex + 2]);
+                        const randomBlockIndex = Math.floor(Math.random() * 3);
+                        block = instantiate(this.blocks[randomBlockIndex + 2]);
                         block.parent = this.tileMap;
+
+                        const randomDecorIndex = Math.floor(Math.random() * this.decors.length);
+                        decor = instantiate(this.decors[randomDecorIndex]);
+                        decor.parent = block;
+
+                        const randomScale = Math.random() + 0.5;
+                        decor.setWorldScale(new Vec3(randomScale, randomScale, 1));
                         break;
                     case BlockType.END_BLOCK:
                         block = instantiate(this.blocks[1]);
