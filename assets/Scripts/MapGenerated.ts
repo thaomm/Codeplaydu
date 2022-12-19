@@ -53,6 +53,7 @@ export class MapGenerated extends Component {
     SetLevel() {
         // const node = event.target as unknown as Node;
         // const level = node.getChildByName("levelNumber").getComponent(Label).string;
+        LevelManager.GetInstance().OpenLevel();
 
         this.currentLevel = LevelManager.GetInstance().levels[1];
 

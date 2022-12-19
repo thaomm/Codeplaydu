@@ -10,6 +10,9 @@ export class LevelManager extends Component {
     @property({ type: Node })
     levelSelect: Node = null;
 
+    @property({ type: Node })
+    buttonBack: Node = null;
+
     public levels;
 
     private static instance: LevelManager;
@@ -30,7 +33,13 @@ export class LevelManager extends Component {
     OpenLevel() {
         this.levelSelect.active = false;
         this.mainGame.active = true;
+        this.buttonBack.active = false;
+    }
 
+    BackToLevelSelection() {
+        this.levelSelect.active = true;
+        this.mainGame.active = false;
+        this.buttonBack.active = true;
     }
 
     CreateLevel() {
